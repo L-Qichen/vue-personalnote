@@ -28,21 +28,21 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 #sidebar {
   position: relative;
   width: 68px;
   text-align: center;
   background-color: #2c333c;
-}
 
-.icons a {
-  padding: 12px 0;
-  display: block;
-}
+  a {
+    padding: 12px 0;
+    display: block;
+  }
 
-.icons .router-link-active {
-  background-color: #5e6266;
+  .router-link-active {
+    background-color: #5e6266;
+  }
 }
 
 .logout {
