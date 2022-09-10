@@ -17,6 +17,8 @@ export default {
 </script>
 
 <style>
+@import "//at.alicdn.com/t/font_496303_kqrjhri8l25d0a4i.css";
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -53,13 +55,6 @@ a {
 ul,
 ol {
   list-style: none;
-}
-
-button {
-  font-size: 14px;
-  font-family: "Avenir", Arial, Helvetica, sans-serif;
-  font-weight: normal;
-  color: #444;
 }
 
 #app {
