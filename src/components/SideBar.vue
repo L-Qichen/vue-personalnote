@@ -1,5 +1,6 @@
 <template>
   <div id="sidebar">
+    <avatar />
     <div class="icons">
       <router-link to="/note/1">
         <div class="iconfont icon-note"></div>
@@ -18,8 +19,12 @@
 </template>
 
 <script>
+import avatar from "@/components/Avatar";
+
 export default {
-  setup() {},
+  components: {
+    avatar,
+  },
 };
 </script>
 
@@ -31,12 +36,8 @@ export default {
   background-color: #2c333c;
 }
 
-.icons {
-  margin-top: 15px;
-}
-
 .icons a {
-  padding: 6px 0;
+  padding: 12px 0;
   display: block;
 }
 
