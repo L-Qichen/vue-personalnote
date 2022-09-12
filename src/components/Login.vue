@@ -6,39 +6,43 @@
           <div class="main"></div>
           <div class="form">
             <h3 @click="isRegister">Sign up</h3>
-            <div v-show="showRegister" class="register">
-              <input
-                type="text"
-                v-model="register.username"
-                placeholder="username"
-              />
-              <input
-                type="password"
-                v-model="register.password"
-                placeholder="password"
-              />
-              <p v-bind:class="{ error: register.isError }">
-                {{ register.notice }}
-              </p>
-              <div class="button" @click="onRegister">Create an account</div>
-            </div>
+            <transition name="slide">
+              <div v-bind:class="{ show: showRegister }" class="register">
+                <input
+                  type="text"
+                  v-model="register.username"
+                  placeholder="username"
+                />
+                <input
+                  type="password"
+                  v-model="register.password"
+                  placeholder="password"
+                />
+                <p v-bind:class="{ error: register.isError }">
+                  {{ register.notice }}
+                </p>
+                <div class="button" @click="onRegister">Create an account</div>
+              </div>
+            </transition>
             <h3 @click="isLogin">Sign in</h3>
-            <div v-show="showLogin" class="login">
-              <input
-                type="text"
-                v-model="login.username"
-                placeholder="username"
-              />
-              <input
-                type="password"
-                v-model="login.password"
-                placeholder="password"
-              />
-              <p v-bind:class="{ error: login.isError }">
-                {{ login.notice }}
-              </p>
-              <div class="button" @click="onLogin">Sign in</div>
-            </div>
+            <transition name="slide">
+              <div v-bind:class="{ show: showLogin }" class="login">
+                <input
+                  type="text"
+                  v-model="login.username"
+                  placeholder="username"
+                />
+                <input
+                  type="password"
+                  v-model="login.password"
+                  placeholder="password"
+                />
+                <p v-bind:class="{ error: login.isError }">
+                  {{ login.notice }}
+                </p>
+                <div class="button" @click="onLogin">Sign in</div>
+              </div>
+            </transition>
           </div>
         </div>
       </div>
@@ -160,9 +164,12 @@ export default {
   .form {
     width: 270px;
     border-left: 1px solid #ccc;
+    overflow: hidden;
 
     h3 {
       padding: 10px 20px;
+      // 这里设置 margin-top：-1px 来重合 sign up 的下 border 和 sign in 的上 border
+      margin-top: -1px;
       font-weight: normal;
       font-size: 16px;
       border-top: 1px solid #eee;
@@ -187,8 +194,15 @@ export default {
 
     .login,
     .register {
-      padding: 10px 20px;
+      padding: 0px 20px;
       border-top: 1px solid #eee;
+      height: 0;
+      overflow: hidden;
+      transition: height 0.4s;
+
+      &.show {
+        height: 193px;
+      }
 
       input {
         display: block;
