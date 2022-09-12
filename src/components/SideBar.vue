@@ -25,6 +25,9 @@ export default {
   components: {
     avatar,
   },
+  methods: {
+    onLogout() {},
+  },
 };
 </script>
 

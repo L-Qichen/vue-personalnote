@@ -5,17 +5,39 @@
         <div class="modal-container">
           <div class="main"></div>
           <div class="form">
-            <h3>Sign up</h3>
-            <div v-show="true" class="register">
-              <input type="text" placeholder="username" />
-              <input type="password" placeholder="password" />
-              <div class="button">Create an account</div>
+            <h3 @click="isRegister">Sign up</h3>
+            <div v-show="showRegister" class="register">
+              <input
+                type="text"
+                v-model="register.username"
+                placeholder="username"
+              />
+              <input
+                type="password"
+                v-model="register.password"
+                placeholder="password"
+              />
+              <p v-bind:class="{ error: register.isError }">
+                {{ register.notice }}
+              </p>
+              <div class="button" @click="onRegister">Create an account</div>
             </div>
-            <h3>Sign in</h3>
-            <div v-show="false" class="login">
-              <input type="text" placeholder="username" />
-              <input type="password" placeholder="password" />
-              <div class="button">Sign in</div>
+            <h3 @click="isLogin">Sign in</h3>
+            <div v-show="showLogin" class="login">
+              <input
+                type="text"
+                v-model="login.username"
+                placeholder="username"
+              />
+              <input
+                type="password"
+                v-model="login.password"
+                placeholder="password"
+              />
+              <p v-bind:class="{ error: login.isError }">
+                {{ login.notice }}
+              </p>
+              <div class="button" @click="onLogin">Sign in</div>
             </div>
           </div>
         </div>
@@ -25,14 +47,82 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      showRegister: true,
+      showLogin: false,
+      register: {
+        username: "",
+        password: "",
+        notice: "Please remember your username and password.",
+        isError: false,
+      },
+      login: {
+        username: "",
+        password: "",
+        notice: "Please input your username and password.",
+        isError: false,
+      },
+    };
+  },
+
+  methods: {
+    isLogin() {
+      this.showRegister = false;
+      this.showLogin = true;
+    },
+    isRegister() {
+      this.showRegister = true;
+      this.showLogin = false;
+    },
+    onRegister() {
+      if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.register.username)) {
+        this.register.isError = true;
+        this.register.notice =
+          "Username must have 3-15 characters, limited to alphanumeric, underscore and Chinese.";
+        return;
+      }
+      if (!/^.{6,16}$/.test(this.register.password)) {
+        this.register.isError = true;
+        this.register.notice =
+          "The length of the password must be 6 to 16 characters.";
+        return;
+      }
+      this.register.isError = false;
+      this.register.notice = "";
+      console.log(
+        `Start register... username: ${this.register.username}, password: ${this.register.password}`
+      );
+    },
+    onLogin() {
+      if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.login.username)) {
+        this.login.isError = true;
+        this.login.notice =
+          "Username must have 3-15 characters, limited to alphanumeric, underscore and Chinese.";
+        return;
+      }
+      if (!/^.{6,16}$/.test(this.login.password)) {
+        this.login.isError = true;
+        this.login.notice =
+          "The length of the password must be 6 to 16 characters.";
+        return;
+      }
+      this.login.isError = false;
+      this.login.notice = "";
+      console.log(
+        `Start login... username: ${this.login.username}, password: ${this.login.password}`
+      );
+    },
+  },
+};
 </script>
 
 <style lang="less">
 .modal-mask {
   position: fixed;
   z-index: 100;
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: rgba(0, 0, 0, 0.6);
   top: 0;
   left: 0;
   width: 100%;
@@ -46,18 +136,16 @@ export default {};
 // 只需要在 modal-mask（父级div）里使用 display：flex
 // 然后加上 justify-content：center 和 align-items：center 就可以搞定
 .modal-wrapper {
-  border: 1px solid red;
   display: table-cell;
   vertical-align: middle;
 }
 
 .modal-container {
-  border: 1px solid purple;
   width: 800px;
   height: 500px;
   margin: 0px auto;
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Arial, Helvetica, sans-serif;
