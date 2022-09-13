@@ -20,13 +20,18 @@
 
 <script>
 import avatar from "@/components/Avatar";
+import request from "@/helper/request";
 
 export default {
   components: {
     avatar,
   },
   methods: {
-    onLogout() {},
+    onLogout() {
+      request("/auth/logout").then((data) => {
+        console.log(data);
+      });
+    },
   },
 };
 </script>
