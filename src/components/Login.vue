@@ -51,10 +51,8 @@
 </template>
 
 <script>
-import request from "@/helper/request";
-request("/auth").then((data) => {
-  console.log(data);
-});
+import Auth from "@/api/auth";
+Auth.getInfo().then((data) => console.log(data));
 
 export default {
   data() {
@@ -103,7 +101,7 @@ export default {
       console.log(
         `Start register... username: ${this.register.username}, password: ${this.register.password}`
       );
-      request("/auth/register", "POST", {
+      Auth.register({
         username: this.register.username,
         password: this.register.password,
       }).then((data) => {
@@ -128,7 +126,7 @@ export default {
       console.log(
         `Start login... username: ${this.login.username}, password: ${this.login.password}`
       );
-      request("/auth/login", "POST", {
+      Auth.login({
         username: this.login.username,
         password: this.login.password,
       }).then((data) => {
